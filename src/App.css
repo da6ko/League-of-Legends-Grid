@@ -1,0 +1,57 @@
+/* Ensure the page fills the viewport */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: sans-serif;
+  background-color: #1f1f2b; /* optional background */
+}
+
+/* Center the grid both vertically and horizontally */
+.container {
+  height: 100vh;               /* full viewport height */
+  display: flex;
+  align-items: center;          /* vertical center */
+  justify-content: center;      /* horizontal center */
+}
+
+/* Main grid */
+.grid {
+  display: grid;
+  grid-template-columns: 180px repeat(3, 180px); /* corner + 3 column headers */
+  grid-auto-rows: 140px;       /* each row height */
+  gap: 16px;
+}
+
+/* Shared styles for corner, headers, and cells */
+.corner, .header, .cell {
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Header styles */
+.header {
+  background-color: #50536a;
+  color: white;
+  padding: 16px;
+}
+
+/* Grid cells */
+.cell {
+  background-color: #2a2b3a;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.cell:hover {
+  background-color: #3a3c52;
+  transform: scale(1.03);
+}
+
+.cell:active {
+  transform: scale(0.97);
+}

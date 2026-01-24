@@ -1,11 +1,13 @@
 import React from "react";
 import "./App.css"; 
 
-export default function Cell({ rowIndex, colIndex, onClick }) {
+export default function Cell({ value, locked, onClick }) {
   return (
     <div
-      className="cell"
-      onClick={() => onClick(rowIndex, colIndex)}
-    />
+      className={`cell ${locked ? "locked" : ""}`}
+      onClick={locked ? null : onClick}
+    >
+      {value}
+    </div>
   );
 }

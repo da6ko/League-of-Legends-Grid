@@ -1,28 +1,26 @@
-/* Ensure the page fills the viewport */
 html, body {
   height: 100%;
   margin: 0;
   font-family: sans-serif;
-  background-color: #1f1f2b; /* optional background */
+  background-color: #1f1f2b; 
 }
 
-/* Center the grid both vertically and horizontally */
 .container {
-  height: 100vh;               /* full viewport height */
+  height: 100vh;
   display: flex;
-  align-items: center;          /* vertical center */
-  justify-content: center;      /* horizontal center */
+  flex-direction: column;   
+  align-items: center;      
+  justify-content: center; 
 }
 
-/* Main grid */
+
 .grid {
   display: grid;
-  grid-template-columns: 180px repeat(3, 180px); /* corner + 3 column headers */
-  grid-auto-rows: 140px;       /* each row height */
+  grid-template-columns: 180px repeat(3, 180px);
+  grid-auto-rows: 140px;       
   gap: 16px;
 }
 
-/* Shared styles for corner, headers, and cells */
 .corner, .header, .cell {
   border-radius: 16px;
   display: flex;
@@ -32,14 +30,12 @@ html, body {
   text-align: center;
 }
 
-/* Header styles */
 .header {
   background-color: #50536a;
   color: white;
   padding: 16px;
 }
 
-/* Grid cells */
 .cell {
   background-color: #2a2b3a;
   cursor: pointer;
@@ -54,4 +50,61 @@ html, body {
 
 .cell:active {
   transform: scale(0.97);
+}
+
+.modal {
+  background: #3a3c52;
+  padding: 28px 32px;
+  border-radius: 10px;
+  min-width: 320px;
+  max-width: 90%;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;   
+  gap: 16px;           
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;               
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal h3 {
+  margin: 0;
+  text-align: center;
+}
+
+.modal input {
+  width: 100%;
+  max-width: 260px;
+  padding: 8px 10px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.modal-buttons button {
+  padding: 8px 18px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.menu {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
 }

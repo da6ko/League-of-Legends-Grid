@@ -4,19 +4,22 @@ import React, { useState } from "react";
 
 const columnHeaders = ["Temp1", "Temp2", "Temp3"];
 const rowHeaders = ["Temp4", "Temp5", "Temp6"];
+const answerList = ["test1", "option2", "what3"];
 
 export default function App() {
   const [cellValues, setCellValues] = useState(Array(9).fill(""));
   const [cellFilled, setCellFilled] = useState(Array(9).fill(false));
-
-  const [activeCell, setActiveCell] = useState(null); 
+  const [activeCell, setActiveCell] = useState(null);
   const [modalValue, setModalValue] = useState("");
   const [showModal, setShowModal] = useState(false);
-
   const [tries, setTries] = useState(3);
 
+  const filteredAnswers = answerList.filter((opt) =>
+    opt.toLowerCase().includes(modalValue.toLowerCase())
+  );
+
   const handleCellClick = (rowIndex, colIndex) => {
-    if (tries === 0) return; 
+    if (tries === 0) return;
 
     const index = (rowIndex - 1) * 3 + (colIndex - 1);
 
@@ -27,22 +30,23 @@ export default function App() {
     setShowModal(true);
   };
 
-  const handleSave = () => {
-    if (modalValue.trim() === "") return;
+const handleSave = () => {
+  if (!answerList.includes(modalValue)) return;
 
-    const newValues = [...cellValues];
-    newValues[activeCell] = modalValue;
-    setCellValues(newValues);
+  const newValues = [...cellValues];
+  newValues[activeCell] = modalValue;
+  setCellValues(newValues);
 
-    const newFilled = [...cellFilled];
-    newFilled[activeCell] = true;
-    setCellFilled(newFilled);
+  const newFilled = [...cellFilled];
+  newFilled[activeCell] = true;
+  setCellFilled(newFilled);
 
-    setTries((prev) => Math.max(prev - 1, 0));
+  setTries((prev) => Math.max(prev - 1, 0));
 
-    setShowModal(false);
-    setActiveCell(null);
-  };
+  setShowModal(false);
+  setActiveCell(null);
+};
+
 
   return (
     <>
@@ -87,13 +91,36 @@ export default function App() {
         <div className="modal-overlay">
           <div className="modal">
             <h3>Enter value</h3>
-            <input
-              autoFocus
-              value={modalValue}
-              onChange={(e) => setModalValue(e.target.value)}
-            />
+
+            <div className="autocomplete">
+              <input
+                autoFocus
+                value={modalValue}
+                onChange={(e) => setModalValue(e.target.value)}
+                placeholder="Type to search..."
+              />
+
+              {modalValue && (
+                <div className="options-list">
+                  {filteredAnswers.length === 0 && (
+                    <div className="option disabled">No matches</div>
+                  )}
+
+                  {filteredAnswers.map((opt, idx) => (
+                    <div
+                      key={idx}
+                      className="option"
+                      onClick={() => setModalValue(opt)}
+                    >
+                      {opt}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <div className="modal-buttons">
-              <button onClick={handleSave}>Save</button>
+              <button onClick={handleSave} disabled={!answerList.includes(modalValue)}>Save</button>
               <button onClick={() => setShowModal(false)}>Cancel</button>
             </div>
           </div>
